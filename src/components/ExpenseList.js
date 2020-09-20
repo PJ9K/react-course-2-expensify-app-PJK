@@ -6,8 +6,8 @@ import selectExpenses from '../selectors/expenses'
 export const ExpenseList = (props) => (   // export for the test cases
   <div>
     {
-      props.expenses.lenght === 0 ? (
-        <p>No expenses</p>
+      props.expenses.length === 0 ? (
+        <p>No expenses to show</p>
       ) : (
         props.expenses.map((expense) => {
           return <ExpenseListItem key={expense.id} {...expense}/>     // spread operator to put everything from expense into expenselistItem

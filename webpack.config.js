@@ -1,11 +1,15 @@
 // hier alles zetten wat webpack moet doen, waar het moet lezen en wegschrijven
 // node format
 
-
 const path = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // entry -> output
-module.exports = {
+module.exports = (env) => {
+  const isProduction = env === 'production'
+  const CSSExtract = new ExtractTextPlugin('styles.css') //argument is the name of the new file
+
+  return {
     entry: './src/app.js', //input
     output: {
         path: path.join(__dirname, 'public'),
@@ -18,19 +22,35 @@ module.exports = {
             exclude: /node_modules/
         }, {
             test: /\.s?css$/, // run all scss or css files through babel 
-            use : [
-                'style-loader',
-                'css-loader',
-                'sass-loader'
-            ]
+            use : CSSExtract.extract({
+              use: [
+                {
+                  loader: 'css-loader',
+                  options: {
+                    sourceMap: true
+                  }
+                },
+                {
+                  loader: 'sass-loader',
+                  options: {
+                    sourceMap: true
+                  }
+                }
+              ]
+            })
         }]
     },
-    devtool: 'cheap-module-eval-source-map',
+    plugins: [
+      CSSExtract
+    ],
+    devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
         contentBase: path.join(__dirname, 'public'),
         historyApiFallback: true
     }
 }
+}
+
 
 // loader om bv ES6 naar ES5 om te zetten of JSX naar JS
 
