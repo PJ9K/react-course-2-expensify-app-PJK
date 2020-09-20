@@ -12,15 +12,9 @@ import 'react-dates/lib/css/_datepicker.css'
 
 const store = configureStore()
 
-const state = store.getState()
-const visibleExpenses = getVisibleExpenses(state.expenses, state.filters)
-console.log(visibleExpenses)
-
-// console.log(store.getState())
-// with the next lines each component of AppRouter will be able to interact with the store
 const jsx = (
   <Provider store={store}>
-    <AppRouter />     
+    <AppRouter />    
   </Provider> 
 )
 
