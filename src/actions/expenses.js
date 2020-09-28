@@ -40,3 +40,27 @@ export const editExpense = (id, updates) => ({
   id,
   updates
 })
+
+// SET_EXPENSES
+export const setExpenses = (expenses) => ({
+  type: 'SET_EXPENSES',
+  expenses
+})
+
+// Get expenses when site loads
+export const startSetExpenses = () => {
+  return (dispatch) => {
+    return database.ref('expenses').once('value').then((snapshot) => {  // return -> promise return so we have access to .then in app.js
+      const expenses = []
+
+      snapshot.forEach((childSnapshot) => {
+        expenses.push({
+          id: childSnapshot.key,
+          ...childSnapshot.val()
+        })
+      })
+
+      dispatch(setExpenses(expenses))
+    })
+  }
+}
