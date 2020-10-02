@@ -10,7 +10,8 @@ export const addExpense = (expense) => ({
 })
 // save things to firebase
 export const startAddExpense = (expenseData = {}) => {
-  return (dispatch) => {        // works only bcs we set up redux thunk, return function. Gets called with dispatch
+  return (dispatch, getState) => {        // works only bcs we set up redux thunk, return function. Gets called with dispatch
+    const uid = getState().auth.uid
     const {                     // setup defualts with destructuring
       description = '', 
       note = '', 
@@ -19,7 +20,7 @@ export const startAddExpense = (expenseData = {}) => {
     } = expenseData
     const expense = { description, note, amount, createdAt }
 
-    return database.ref('expenses').push(expense).then((ref) => {     // return this for the testing file, for promise chaining
+    return database.ref(`users/${uid}/expenses`).push(expense).then((ref) => {     // return this for the testing file, for promise chaining
       dispatch(addExpense({
         id: ref.key,
         ...expense
@@ -35,8 +36,9 @@ export const removeExpense = ({ id }) => ({
 })
 // remove expense from firebase
 export const startRemoveExpense = ({ id } = {}) => {
-  return (dispatch) => {         // dispatch gets passed to this function by redux library
-    return database.ref(`expenses/${id}`).remove().then(() => {
+  return (dispatch, getState) => {         // dispatch gets passed to this function by redux library
+    const uid = getState().auth.uid
+    return database.ref(`users/${uid}/expenses/${id}`).remove().then(() => {
       dispatch(removeExpense({ id }))
     })            // communicate with firebase with asynchronous action and then return a synchronus action to change reduxstore
   }
@@ -50,8 +52,9 @@ export const editExpense = (id, updates) => ({
 });
 
 export const startEditExpense = (id, updates) => {
-  return (dispatch) => {
-    return database.ref(`expenses/${id}`).update(updates).then(() => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    return database.ref(`users/${uid}/expenses/${id}`).update(updates).then(() => {
       dispatch(editExpense(id, updates));
     });
   };
@@ -65,8 +68,9 @@ export const setExpenses = (expenses) => ({
 
 // Get expenses when site loads
 export const startSetExpenses = () => {
-  return (dispatch) => {
-    return database.ref('expenses').once('value').then((snapshot) => {  // return -> promise return so we have access to .then in app.js
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid
+    return database.ref(`users/${uid}/expenses`).once('value').then((snapshot) => {  // return -> promise return so we have access to .then in app.js
       const expenses = []
 
       snapshot.forEach((childSnapshot) => {
