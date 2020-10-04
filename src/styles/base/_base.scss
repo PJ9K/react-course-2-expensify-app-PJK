@@ -1,12 +1,19 @@
-// rem
+// her are all the default things that are in play
+
+* {
+  box-sizing: border-box;       // set the height to the specified heigth, not the chosen height + padding + margin +... 
+                                // if you set it to content box, the box is set to specified heigth and after they put the padding and stuff
+}
 
 html {
     font-size: 62.5%; // for use of rem (=16 pixel)
 }
 
 body {
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: $m-size;
+  color: $dark-grey;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: $m-size;
+  line-height: 1.6;
 }
 
 button {

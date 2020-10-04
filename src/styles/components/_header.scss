@@ -1,0 +1,18 @@
+.header {
+  background: $dark-blue;
+}
+
+.header__content {
+  align-items: center;        // align vertically
+  display: flex;                     // after this title is next to button
+  justify-content: space-between;   // distribute all the left over space between expensify title and the button
+  padding: $s-size 0;               // s size on top and botten, 0 left and right
+}
+
+.header__title {
+  color: white;
+  text-decoration: none;        // delete default text decoration (underline of expensify when clicked)
+  h1 {                        // target h1 in header__title
+    margin: 0;
+  }
+}

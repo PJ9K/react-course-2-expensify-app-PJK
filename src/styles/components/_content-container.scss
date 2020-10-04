@@ -1,0 +1,5 @@
+.content-container {        // put everything in the middle with chosen width, 2 banden links en rechts
+  margin: 0 auto;           // 0 margin vertically, auto put it in the middle horizontal
+  padding: 0 $m-size;
+  max-width: 80rem;
+}

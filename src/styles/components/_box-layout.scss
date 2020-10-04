@@ -1,0 +1,23 @@
+.box-layout {
+  align-items: center;            // allign vertically
+  background: url('/images/bg.jpg');        // import background image
+  background-size: cover;        // always cover the container with the immage
+  display: flex;                  // to get everything centered, now you can use allign and justify-content
+  height: 100vh;               // 100 procent of the viewheight
+  justify-content: center;     // center horizontically
+  width: 100vW;
+}
+
+.box-layout__box {
+  background: fade-out(white, .15);  // set background to white with 15 percent fade
+  border-radius: 3px;                 // gives it a slight border
+  padding: $l-size $m-size;          // put some space between the border and the text, first top and bottom, then left and right
+  text-align: center;                 // center the text in the box
+  width: 25rem;                       //fixed width
+
+}
+
+.box-layout__title {
+  margin: 0 0 $m-size 0;      // set margin top right bottom left
+  line-height: 1;             // height of the line above and under the text
+}

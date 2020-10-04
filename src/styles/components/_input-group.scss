@@ -1,0 +1,18 @@
+.input-group {
+  display: flex;
+  flex-direction: column;    // standerd it is set on row
+  margin-bottom: $m-size;
+
+  @media (min-width: $desktop-breakpoint) {     // inside this we have the options for larger screens, above for smaller screens
+    flex-direction: row;
+    margin-bottom: $l-size;
+  }
+}
+
+.input-group__item {
+  margin-bottom: $s-size;
+  
+  @media (min-width: $desktop-breakpoint) { 
+    margin: 0 $s-size 0 0             // put is like this, otherwise we still have the bottom margin 
+  }
+}
